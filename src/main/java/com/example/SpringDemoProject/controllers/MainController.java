@@ -1,8 +1,12 @@
 package com.example.SpringDemoProject.controllers;
 
+import com.example.SpringDemoProject.config.CustomUserDetails;
 import com.example.SpringDemoProject.models.Message;
+import com.example.SpringDemoProject.models.User;
 import com.example.SpringDemoProject.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,8 +34,12 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        messageService.save(new Message(text, tag));
+    public String addMessage(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestParam String text,
+            @RequestParam String tag,
+            Map<String, Object> model) {
+        messageService.save(new Message(userDetails.getUser(), text, tag));
         model.put("messages", messageService.findAll());
         return "main";
     }
