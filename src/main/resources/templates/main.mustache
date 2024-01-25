@@ -1,15 +1,25 @@
 <html>
+    <head>
+        <title>main page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
     <body>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <input type="submit" value="Sign Out"/>
+        </form>
         <div>
             <form method="post">
                 <input type="text" name="text" placeholder="enter the message">
                 <input type="text" name="tag" placeholder="enter the tag">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
                 <button type="submit">add</button>
             </form>
         </div>
         <div> messages list </div>
         <form method="post" action="filter">
             <input type="text" name="filter" placeholder="enter tag">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <button type="submit">search</button>
         </form>
         {{#messages}}
