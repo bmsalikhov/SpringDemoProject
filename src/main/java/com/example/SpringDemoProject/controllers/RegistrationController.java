@@ -2,7 +2,6 @@ package com.example.SpringDemoProject.controllers;
 
 import com.example.SpringDemoProject.models.Role;
 import com.example.SpringDemoProject.models.User;
-import com.example.SpringDemoProject.repositories.UserRepository;
 import com.example.SpringDemoProject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
