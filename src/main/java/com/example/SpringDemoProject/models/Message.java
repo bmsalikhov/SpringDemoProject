@@ -21,6 +21,8 @@ public class Message {
     @JoinColumn(name = "user_id")
     private User author;
 
+    private String filename;
+
     public Message(User user, String text, String tag) {
         this.author = user;
         this.text = text;
