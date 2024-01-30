@@ -1,38 +1,51 @@
 <#import "parts/common.ftlh" as c>
-<#import "parts/login.ftlh" as l>
 
 <@c.page>
-    <div>
-        <@l.logout />
-        <span><a href="/user">User list</a></span>
-    </div>
-    <div>
-        <form method="post"  action="add" enctype="multipart/form-data">
-            <input type="text" name="text" placeholder="Enter the message">
-            <input type="text" name="tag" placeholder="Enter the tag">
-            <input type="file" name="file">
-            <input type="hidden" name="_csrf" value="${_csrf.token}" />
-            <button type="submit">add</button>
-        </form>
-    </div>
-    <div> Messages list </div>
-    <form method="get" action="main">
-        <input type="text" name="filter" value="${filter!}" placeholder="Enter the tag">
-        <button type="submit">Find messages</button>
+    <form class="row g-3" method="get" action="main">
+        <div class="col-auto">
+            <label class="visually-hidden">Enter the tag</label>
+            <input type="text" name="filter" class="form-control" placeholder="Search by tag" value="${filter!}">
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3">Search</button>
+        </div>
     </form>
-    <#list messages as message>
+    <a class="btn btn-primary mb-3" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add new message
+    </a>
+    <div class="collapse" id="collapseExample">
         <div>
-            <b>${message.id}</b>
-            <strong>${message.authorName}</strong>
-            <span>${message.text}</span>
-            <i>${message.tag}</i><br>
-            <div>
+            <form method="post" action="add" enctype="multipart/form-data">
+                <input type="text" name="text" class="form-control mt-3 mb-3 ml-3" id="message" placeholder="Enter the message">
+                <input type="text" name="tag" class="form-control mb-3 ml-3" id="message" placeholder="Enter the tag">
+                <input class="form-control mb-3 ml-3" name="file" type="file">
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                <button type="submit" class="btn btn-primary ml-3 mb-3">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" data-masonry='{"percentPosition": true }'>
+        <#list messages as message>
+        <div class="col-sm-6 col-lg-4 mb-4">
+            <div class="card">
                 <#if message.filename??>
-                    <img src="/img/${message.filename}">
+                    <img src="/img/${message.filename}" class="card-img-top">
                 </#if>
+                <div class="card-body">
+                    <p class="card-text">${message.text}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Author: ${message.authorName}</small>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Tag: ${message.tag}</small>
+                </div>
             </div>
         </div>
         <#else>
-        No messages!
-    </#list>
+            No messages!
+        </#list>
+    </div>
 </@c.page>
+
+
