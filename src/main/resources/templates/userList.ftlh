@@ -1,17 +1,17 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-    List of users
+    <h1 class="mb-3">List of users</h1>
 
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th></th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
         <#list users as user>
             <tr>
                 <td>${user.username}</td>
@@ -20,7 +20,8 @@
             </tr>
         </#list>
         </tbody>
-
     </table>
+
+
 
 </@c.page>
